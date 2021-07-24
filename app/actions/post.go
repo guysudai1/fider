@@ -35,9 +35,9 @@ func (action *CreateNewPost) Validate(ctx context.Context, user *entity.User) *v
 
 	if action.Title == "" {
 		result.AddFieldFailure("title", propertyIsRequired(ctx, "title"))
-	} else if len(action.Title) < 10 {
+	} else if len(action.Title) < 1 {
 		result.AddFieldFailure("title", i18n.T(ctx, "validation.custom.descriptivetitle"))
-	} else if len(action.Title) > 100 {
+	} else if len(action.Title) > 1000 {
 		result.AddFieldFailure("title", propertyMaxStringLen(ctx, "title", 100))
 	} else {
 		err := bus.Dispatch(ctx, &query.GetPostBySlug{Slug: slug.Make(action.Title)})
